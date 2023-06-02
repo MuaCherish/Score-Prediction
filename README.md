@@ -1,15 +1,24 @@
 PS：介绍代码仅供介绍，源代码后期经过修改与介绍代码不一定完全相同
-PS: The introduction code is for introduction only, the source code is not necessarily the same as the introduction code after later modification
+<p>PS: The introduction code is for introduction only, the source code is not necessarily the same as the introduction code after later modification</p>
 
-## 索引表
-使用到的库
-数据加载和预处理
-划分训练集和测试集
-模型选择和训练
-模型评估
-模型优化
-结果展示
-尾声
+## $ 项目开发动机
+- 赶着这学期刚学了机器学习，就尝试做一个可以自己预测游戏期望评分的一个模型[^doge]
+
+- 此数据集来自国外一个叫做Kaggle的数据分析社区，保存了从1980到2023年最受欢迎，最吸引人的游戏数据，包含了发布日期，用户评论，玩家数，正在游玩的玩家数等等，横跨了43年的热门游戏数据的样本量也只有1570多个，说明高质量且受欢迎的游戏数量还是很稀疏的
+
+<p>
+## 目录
+<pre>
+1. 使用到的库
+2. 数据加载和预处理
+3. 划分训练集和测试集
+4. 模型选择和训练
+5. 模型评估
+6. 模型优化
+7. 结果展示
+8. 尾声
+</pre>
+</p>
 
 ## 使用到的库 The library used
 ```
