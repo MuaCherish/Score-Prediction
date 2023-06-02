@@ -1,4 +1,5 @@
 PS：介绍代码仅供介绍，源代码后期经过修改与介绍代码不一定完全相同
+PS: The introduction code is for introduction only, the source code is not necessarily the same as the introduction code after later modification
 
 ## 索引表
 使用到的库
@@ -10,7 +11,7 @@ PS：介绍代码仅供介绍，源代码后期经过修改与介绍代码不一
 结果展示
 尾声
 
-## 使用到的库
+## 使用到的库 The library used
 ```
 import pandas as pd  # 数据处理库
 from gensim.models import Word2Vec  # 自然语言处理模型库
@@ -26,7 +27,7 @@ import random # 随机库
 import joblib # 用于模型的保存
 import datetime # 获取当前时间
 ```
-## 数据加载和预处理
+## 数据加载和预处理 Data loading and preprocessing
 ```
 初步检查数据集
 初步观察，发现：
@@ -38,13 +39,13 @@ import datetime # 获取当前时间
 6. 有的数据是以1K计数,需要转化为十进制数字
 ```
 
-## 读取CSV文件，并将数据集存储为一个Game_data。
+## 读取CSV文件 Reading a CSV file
 ```
 # 读取CSV文件  
 df = pd.read_csv('csvs/原始数据集.csv', encoding='gbk')
 ```
 
-## 检查数据集是否存在缺失值或异常值，如果有需要进行数据清洗和处理。
+## 检查数据集是否存在缺失值或异常值，如果有需要进行数据清洗和处理。Check the data set for missing values or outliers, and perform data cleaning and processing if necessary.
 ```
 # 获取列名列表  
 cols = df.columns  
@@ -60,7 +61,7 @@ for col in cols:
 		df.drop(df[df[col].isnull()].index, inplace=True)
 ```
 
-## 删除过于离群的点
+## 删除过于离群的点 Remove points that are too outlier
 ```
 # 获取 Rating 列  
 rating = df['Rating']  
@@ -72,7 +73,7 @@ for value in rating:
 		df.drop(df[df['Rating'] == value].index, inplace=True)  
 ```
 
-## 检查是否有重复值，如果有则消除重复值
+## 检查是否有重复值，如果有则消除重复值 Check for duplicate values and eliminate them if they exist
 ```
 # 删除 Title 列重复值对应的行  
 df.drop_duplicates(subset=['Title'], inplace=True)
@@ -113,7 +114,7 @@ np.save("特征/Team_Vector.npy", Team_embedding_matrix)
 np.save("特征/Genres_Vector.npy", Genres_embedding_matrix)  
 ```
   
-## 对于出现K来代替十进制的数字，需要进行修改，即把1.1K --> 1100
+## 对于出现K来代替十进制的数字，需要进行修改，即把1.1K --> 1100 For numbers where K is used instead of decimal, you need to change it to 1.1K -> 1100
 ```
 # 加载需要修改的数字  
 K_Reviews = df['Number of Reviews']  
@@ -159,7 +160,7 @@ if "K" in item:
 	dataframe.to_csv("特征/Wishlist.csv", index=False)  
 ```
 
-## 合并以下所有参数
+## 合并以下所有参数 Merge all of the following parameters
 ```python
 # 定义文件路径和输出文件  
 path = '特征/'  
@@ -189,7 +190,7 @@ result = pd.concat(frames, axis=1)
 result.to_csv(os.path.join(path, output), index=False)
 ```
 
-## 划分训练集和测试集
+## 划分训练集和测试集 Divide the training set and test set
 ```
 # 将数据集划分为训练集和测试集
 # 打乱训练集  
@@ -218,7 +219,7 @@ test_label = label[train_idx:]
 它可以评估每个特征的重要性,这在解释模型和特征选择上很有帮助。
 随机森林回归模型具有减少方差,提高预测精度,强大的并行计算能力以及特征选择能力等优点。它是一个非常实用的机器学习模型,特别适用于解决回归和分类问题。它的思想也启发了许多其他的ensemble方法,如GBDT等。
 
-## 构建随机森林回归模型  
+## 构建随机森林回归模型  Construct random forest regression model
 ```
 Rating_predict_model = RandomForestRegressor(  
 	n_estimators=450, # 数据集较小,不需要太多的决策树  
@@ -239,7 +240,7 @@ model_filename = now.strftime("%Y%m%d_%H%M%S") + ".pkl"
 joblib.dump(Rating_predict_model, '数据/模型/' + model_filename)
 ```
 
-## 模型评估
+## 模型评估 model evaluation
 ```
 # 预测结果
 predict = Rating_predict_model.predict(test_features)  
@@ -273,7 +274,7 @@ print(f'随机森林回归模型最大误差评估: {max_error:.5f}')
 模型泛化能力不足
  训练数据不足
 
-## 结果展示
+## 结果展示 results display
 游戏评分与实际评分的差异分布
 ```
 # 设置窗口大小
@@ -336,3 +337,4 @@ plt.show()
 
 ## 尾声
 数据集只有1500组，虽说是从上世纪到现在的全部质量还不错的游戏，不免让人有些感慨 1. 游戏开发的难度较大 2. 游戏类型和机制的创新空间有限 总体来说,这一现象的产生有多方面的原因,不仅仅局限于数据采集本身,更受游戏开发难度、创新发展瓶颈和产业成熟度的制约。但随着技术的进步、人才的培养和产业的发展,高质量游戏的数量会不断增加,这也为未来的游戏体验带来更多期待。 人类历史上真正影响深远的作品永远是稀缺的,这体现在各个文化领域。游戏作为一种比较年轻的文化形式,其精品游戏的数量相对而言会少一些也在情理之中。但我相信,随着时间的推移,这一数量会不断丰富,为游戏文化的繁荣与传承做出更大贡献。
+The data set is only 1500, although the total number of quality games from the last century to the present is somewhat impressive. 2. Limited space for innovation of game types and mechanics Generally speaking, there are many reasons for this phenomenon, not only limited to the data collection itself, but also restricted by the difficulty of game development, innovation and development bottleneck and industrial maturity. But with the advancement of technology, the cultivation of talent and the development of the industry, the number of high-quality games will continue to increase, which also brings more expectations for the future gaming experience. Truly profound works in human history are always scarce, and this is reflected in every cultural field. As a relatively young cultural form, it's not surprising that the number of good games is relatively small. But I believe that with the passage of time, this number will continue to enrich, and make greater contribution to the prosperity and inheritance of game culture.
